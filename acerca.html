@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acerca de - Portal del Tarot Art Nouveau</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Coda&family=Hedvig+Letters+Sans&family=Jersey+15&family=Jersey+20+Charted&family=Liter&family=Luckiest+Guy&family=Oranienbaum&family=Press+Start+2P&family=Quattrocento+Sans&family=Sorts+Mill+Goudy&family=Unna&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-gold: #D4AF37;
+            --primary-purple: #8B4F9F;
+            --primary-green: #6B8E23;
+            --dark-bg: #0a0a0a;
+            --dark-secondary: #1a1a1a;
+            --text-light: #f5f5f5;
+            --text-gold: #D4AF37;
+        }
+
+        body {
+            background: var(--dark-bg);
+            font-family: 'Oranienbaum', serif;
+            color: var(--text-light);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        .mystical-title {
+            font-family: 'Sorts Mill Goudy', serif;
+            background: linear-gradient(-45deg, var(--primary-gold), var(--primary-purple), var(--primary-green), var(--primary-gold));
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 4s ease-in-out infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .content-card {
+            background: rgba(26, 26, 26, 0.8);
+            backdrop-filter: blur(10px);
+            border: 2px solid var(--primary-gold);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .content-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(212, 175, 55, 0.3);
+        }
+
+        .ethical-notice {
+            background: linear-gradient(135deg, rgba(139, 79, 159, 0.2), rgba(212, 175, 55, 0.1));
+            border-left: 4px solid var(--primary-purple);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ethical-notice::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent, rgba(212, 175, 55, 0.05), transparent);
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
+        }
+
+        .floating-particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--primary-gold);
+            border-radius: 50%;
+            animation: floatParticle 10s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes floatParticle {
+            0% { transform: translateY(100vh) translateX(0px); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100px) translateX(50px); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Fondo de estrellas -->
+    <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%); z-index: -2;">
+        <div style="position: absolute; width: 100%; height: 100%; background-image: radial-gradient(2px 2px at 20px 30px, #eee, transparent), radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.8), transparent), radial-gradient(1px 1px at 90px 40px, #fff, transparent), radial-gradient(1px 1px at 130px 80px, rgba(255,255,255,0.6), transparent), radial-gradient(2px 2px at 160px 30px, #ddd, transparent); background-repeat: repeat; background-size: 200px 100px; animation: sparkle 20s linear infinite;"></div>
+    </div>
+
+    <!-- Partículas flotantes -->
+    <div id="floatingParticles"></div>
+
+    <div class="max-w-4xl mx-auto px-4 py-20">
+        
+        <!-- Hero Section -->
+        <div class="text-center py-20">
+            <div class="floating-particle" style="top: 20%; left: 10%; animation-delay: 0s;"></div>
+            <div class="floating-particle" style="top: 60%; right: 15%; animation-delay: 2s;"></div>
+            <div class="floating-particle" style="bottom: 30%; left: 20%; animation-delay: 4s;"></div>
+            
+            <div class="mb-8">
+                <i class="fas fa-scroll text-6xl text-yellow-500 mb-4"></i>
+            </div>
+            
+            <h1 class="mystical-title text-5xl md:text-7xl font-bold mb-6 leading-tight">
+                Portal del<br>
+                <span class="italic">Conocimiento</span>
+            </h1>
+            
+            <p class="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+                Un viaje a través del arte, la sabiduría ancestral y la reflexión personal
+            </p>
+        </div>
+
+        <!-- Sobre el Proyecto -->
+        <section class="content-card">
+            <h2 class="text-3xl font-bold mb-6 text-yellow-400" style="font-family: 'Sorts Mill Goudy', serif;">
+                <i class="fas fa-palette text-yellow-500 mr-3"></i>
+                Sobre el Portal Místico
+            </h2>
+            
+            <div class="prose prose-lg text-gray-300 leading-relaxed">
+                <p class="mb-6 text-lg">
+                    El <strong>Portal del Tarot Art Nouveau</strong> es una fusión única entre la sabiduría ancestral del tarot y la estética 
+                    elegante del movimiento Art Nouveau. Cada carta ha sido cuidadosamente diseñada para reflejar 
+                    no solo el significado tradicional del arcano, sino también la belleza ornamental y los patrones 
+                    orgánicos que caracterizan este icónico estilo artístico.
+                </p>
+                
+                <p class="mb-6 text-lg">
+                    Nuestra misión es crear una herramienta de reflexión personal que combine el poder simbólico 
+                    del tarot con una experiencia visual excepcional. Creemos que el arte puede ser una puerta 
+                    hacia la introspección y el crecimiento personal, y que cada lectura es un viaje único 
+                    a través del misterio y la autodescubrimiento.
+                </p>
+                
+                <p class="text-lg">
+                    Con <strong>78 cartas únicas</strong>, desde los Arcanos Mayores hasta los Menores, cada diseño incorpora 
+                    elementos característicos del Art Nouveau: líneas sinuosas, motivos florales, y una paleta 
+                    de colores que evoca la época dorada de este movimiento artístico, todo envuelto en 
+                    una atmósfera mística y cinematográfica.
+                </p>
+            </div>
+        </section>
+
+        <!-- Nota Ética Mejorada -->
+        <section class="content-card">
+            <h2 class="text-3xl font-bold mb-6 text-purple-400" style="font-family: 'Sorts Mill Goudy', serif;">
+                <i class="fas fa-balance-scale text-purple-500 mr-3"></i>
+                Sabiduría Responsable
+            </h2>
+            
+            <div class="ethical-notice">
+                <div class="flex items-start space-x-4">
+                    <div class="flex-shrink-0">
+                        <i class="fas fa-exclamation-triangle text-purple-400 text-2xl mt-1"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-purple-300 mb-2">Uso Recreativo y de Reflexión</h3>
+                        <p class="text-gray-300 leading-relaxed">
+                            Este portal está diseñado exclusivamente para fines recreativos y de reflexión personal. 
+                            No sustituye el consejo profesional de médicos, terapeutas o cualquier otro profesional calificado.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-6 mt-6">
+                <div class="bg-gray-900/50 p-4 rounded-lg border border-yellow-500/30">
+                    <h4 class="font-bold text-yellow-400 mb-2">
+                        <i class="fas fa-heart mr-2"></i>
+                        Responsabilidad del Usuario
+                    </h4>
+                    <p class="text-gray-300 text-sm">
+                        Las interpretaciones son guías simbólicas basadas en tradiciones esotéricas. 
+                        No deben tomarse como verdades absolutas sino como puntos de partida para la reflexión.
+                    </p>
+                </div>
+                
+                <div class="bg-gray-900/50 p-4 rounded-lg border border-green-500/30">
+                    <h4 class="font-bold text-green-400 mb-2">
+                        <i class="fas fa-brain mr-2"></i>
+                        Salud Mental
+                    </h4>
+                    <p class="text-gray-300 text-sm">
+                        Si experimentas dificultades emocionales, busca ayuda profesional. 
+                        Este portal no es una herramienta terapéutica sino una experiencia de crecimiento personal.
+                    </p>
+                </div>
+                
+                <div class="bg-gray-900/50 p-4 rounded-lg border border-blue-500/30">
+                    <h4 class="font-bold text-blue-400 mb-2">
+                        <i class="fas fa-lightbulb mr-2"></i>
+                        Toma de Decisiones
+                    </h4>
+                    <p class="text-gray-300 text-sm">
+                        No bases decisiones importantes únicamente en las lecturas. 
+                        Úsalas como inspiración para tu propio proceso de toma de decisiones.
+                    </p>
+                </div>
+                
+                <div class="bg-gray-900/50 p-4 rounded-lg border border-purple-500/30">
+                    <h4 class="font-bold text-purple-400 mb-2">
+                        <i class="fas fa-sparkles mr-2"></i>
+                        Espíritu de la Herramienta
+                    </h4>
+                    <p class="text-gray-300 text-sm">
+                        El verdadero valor reside en su capacidad para estimular la introspección, 
+                        fomentar la auto-reflexión y ayudarte a explorar diferentes perspectivas.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <div class="text-center mt-12">
+            <a href="index.html" class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-yellow-500 to-purple-600 text-white rounded-full font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg">
+                <i class="fas fa-arrow-left mr-2"></i>
+                Volver al Portal
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Crear partículas flotantes
+        function createFloatingParticles() {
+            setInterval(() => {
+                if (Math.random() > 0.7) {
+                    const particle = document.createElement('div');
+                    particle.className = 'floating-particle';
+                    particle.style.left = Math.random() * window.innerWidth + 'px';
+                    particle.style.animationDuration = (Math.random() * 6 + 4) + 's';
+                    particle.style.animationDelay = Math.random() * 2 + 's';
+                    
+                    document.getElementById('floatingParticles').appendChild(particle);
+                    
+                    setTimeout(() => {
+                        if (particle.parentNode) {
+                            particle.parentNode.removeChild(particle);
+                        }
+                    }, 10000);
+                }
+            }, 2000);
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            createFloatingParticles();
+        });
+    </script>
+</body>
+</html>

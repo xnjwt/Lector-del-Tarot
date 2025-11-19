@@ -1,0 +1,1780 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarot Art Nouveau - Portal Místico</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Coda&family=Hedvig+Letters+Sans&family=Jersey+15&family=Jersey+20+Charted&family=Liter&family=Luckiest+Guy&family=Oranienbaum&family=Press+Start+2P&family=Quattrocento+Sans&family=Sorts+Mill+Goudy&family=Unna&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-gold: #D4AF37;
+            --primary-purple: #8B4F9F;
+            --primary-green: #6B8E23;
+            --dark-bg: #0a0a0a;
+            --dark-secondary: #1a1a1a;
+            --text-light: #f5f5f5;
+            --text-gold: #D4AF37;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--dark-bg);
+            font-family: 'Oranienbaum', serif;
+            color: var(--text-light);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Fondo de estrellas animado */
+        .starry-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
+            z-index: -2;
+        }
+
+        .stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(2px 2px at 20px 30px, #eee, transparent),
+                radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.8), transparent),
+                radial-gradient(1px 1px at 90px 40px, #fff, transparent),
+                radial-gradient(1px 1px at 130px 80px, rgba(255,255,255,0.6), transparent),
+                radial-gradient(2px 2px at 160px 30px, #ddd, transparent);
+            background-repeat: repeat;
+            background-size: 200px 100px;
+            animation: sparkle 20s linear infinite;
+        }
+
+        @keyframes sparkle {
+            from { transform: translateX(0); }
+            to { transform: translateX(-200px); }
+        }
+
+        /* Navegación con desvanecimiento progresivo */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            transition: all 0.5s ease;
+            opacity: 1;
+        }
+
+        .navbar.fading {
+            opacity: 0.3;
+            background: rgba(10, 10, 10, 0.7);
+        }
+
+        /* Títulos con gradiente animado */
+        .mystical-title {
+            font-family: 'Sorts Mill Goudy', serif;
+            background: linear-gradient(-45deg, var(--primary-gold), var(--primary-purple), var(--primary-green), var(--primary-gold));
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 4s ease-in-out infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        /* Contenedor principal de secciones */
+        .main-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .section {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            transform: translateX(100%);
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow-y: auto;
+            padding-top: 100px;
+            padding-bottom: 100px;
+        }
+
+        .section.active {
+            transform: translateX(0);
+        }
+
+        .section.prev {
+            transform: translateX(-100%);
+        }
+
+        /* Partículas flotantes */
+        .floating-particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--primary-gold);
+            border-radius: 50%;
+            animation: floatParticle 10s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes floatParticle {
+            0% { transform: translateY(100vh) translateX(0px); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100px) translateX(50px); opacity: 0; }
+        }
+
+        /* Círculo de cartas en inicio - CENTRADO CORRECTAMENTE */
+        .card-circle {
+            position: relative;
+            width: 350px;
+            height: 350px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .floating-card {
+            position: absolute;
+            width: 70px;
+            height: 110px;
+            background: linear-gradient(135deg, var(--primary-gold), var(--primary-purple));
+            border-radius: 8px;
+            border: 2px solid rgba(212, 175, 55, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            animation: orbit 20s linear infinite;
+            transform-origin: center center;
+        }
+
+        .floating-card:hover {
+            animation-play-state: paused;
+            transform: scale(1.2) translateY(-10px);
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.4);
+            z-index: 10;
+        }
+
+        /* ORBITA CENTRADA CORRECTAMENTE */
+        @keyframes orbit {
+            from { transform: rotate(0deg) translateX(140px) rotate(0deg); }
+            to { transform: rotate(360deg) translateX(140px) rotate(-360deg); }
+        }
+
+        .floating-card:nth-child(1) { animation-delay: 0s; }
+        .floating-card:nth-child(2) { animation-delay: -4s; }
+        .floating-card:nth-child(3) { animation-delay: -8s; }
+        .floating-card:nth-child(4) { animation-delay: -12s; }
+        .floating-card:nth-child(5) { animation-delay: -16s; }
+
+        /* Botón central místico */
+        .mystical-button {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--primary-gold), var(--primary-purple));
+            border: 3px solid rgba(212, 175, 55, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 5;
+        }
+
+        .mystical-button::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.5s ease;
+        }
+
+        .mystical-button:hover::before {
+            animation: shimmer 1s ease-in-out;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .mystical-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.6);
+        }
+
+        /* Efecto de chispas mejorado con sonido de piano */
+        .spark {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: radial-gradient(circle, #FFD700, #FFA500, #FF6347);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: sparkAnimation 1.5s ease-out forwards;
+            box-shadow: 0 0 10px #FFD700, 0 0 20px #FFA500;
+        }
+
+        @keyframes sparkAnimation {
+            0% {
+                transform: scale(0) rotate(0deg);
+                opacity: 1;
+                box-shadow: 0 0 10px #FFD700, 0 0 20px #FFA500;
+            }
+            25% {
+                transform: scale(2) rotate(90deg);
+                opacity: 1;
+                box-shadow: 0 0 20px #FFD700, 0 0 40px #FFA500, 0 0 60px #FF6347;
+            }
+            50% {
+                transform: scale(1.5) rotate(180deg);
+                opacity: 1;
+                box-shadow: 0 0 15px #FFD700, 0 0 30px #FFA500;
+            }
+            100% {
+                transform: scale(0.3) rotate(360deg);
+                opacity: 0;
+                box-shadow: 0 0 5px #FFD700;
+            }
+        }
+
+        /* Chispas múltiples con trayectoria */
+        .spark-trajectory {
+            position: absolute;
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        /* Animación de cartas moviéndose al centro */
+        .card-to-center {
+            animation: moveToCenter 1.5s ease-in-out forwards;
+        }
+
+        @keyframes moveToCenter {
+            0% {
+                transform: rotate(var(--current-rotation)) translateX(140px) rotate(var(--current-rotation));
+                opacity: 1;
+            }
+            50% {
+                transform: translate(0, 0) scale(1.2);
+                opacity: 0.8;
+            }
+            100% {
+                transform: translate(0, 0) scale(0);
+                opacity: 0;
+            }
+        }
+
+        /* Animación de reaparición de cartas */
+        .card-reappear {
+            animation: cardReappear 2s ease-out forwards;
+        }
+
+        @keyframes cardReappear {
+            0% {
+                transform: scale(0) rotate(720deg);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.3) rotate(360deg);
+                opacity: 0.8;
+            }
+            100% {
+                transform: scale(1) rotate(var(--target-rotation));
+                opacity: 1;
+            }
+        }
+
+        /* Área de lectura */
+        .reading-area {
+            position: relative;
+            padding: 2rem;
+        }
+
+        /* Cartas místicas */
+        .mystical-card {
+            width: 120px;
+            height: 200px;
+            background: linear-gradient(135deg, var(--primary-gold), var(--primary-purple));
+            border-radius: 12px;
+            border: 2px solid transparent;
+            background-clip: padding-box;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            transform-style: preserve-3d;
+            margin: 0.5rem;
+        }
+
+        .mystical-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--primary-gold), var(--primary-purple), var(--primary-green), var(--primary-gold));
+            background-size: 400% 400%;
+            border-radius: 12px;
+            z-index: -1;
+            animation: borderGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes borderGlow {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .mystical-card:hover {
+            transform: translateY(-10px) rotateY(5deg);
+            box-shadow: 0 20px 40px rgba(212, 175, 55, 0.4);
+        }
+
+        .mystical-card.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--primary-gold), var(--primary-purple));
+        }
+
+        .card-front {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            transform: rotateY(180deg);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .card-front img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Posiciones de cartas */
+        .card-position {
+            width: 140px;
+            height: 220px;
+            border: 3px dashed rgba(212, 175, 55, 0.5);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(26, 26, 26, 0.3);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .card-position.filled {
+            border: 3px solid var(--primary-gold);
+            background: rgba(212, 175, 55, 0.1);
+            animation: auraGlow 2s ease-in-out infinite;
+        }
+
+        @keyframes auraGlow {
+            0%, 100% { box-shadow: 0 0 20px rgba(212, 175, 55, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(212, 175, 55, 0.6); }
+        }
+
+        /* Luces guía mejoradas */
+        .guiding-light {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: radial-gradient(circle, var(--primary-gold), transparent);
+            border-radius: 50%;
+            animation: lightDance 8s ease-in-out infinite;
+            box-shadow: 0 0 30px var(--primary-gold);
+            pointer-events: none;
+        }
+
+        @keyframes lightDance {
+            0%, 100% { transform: translateX(0px) translateY(0px); opacity: 0.7; }
+            12.5% { transform: translateX(100px) translateY(-50px); opacity: 1; }
+            25% { transform: translateX(-50px) translateY(-100px); opacity: 0.8; }
+            37.5% { transform: translateX(80px) translateY(-30px); opacity: 1; }
+            50% { transform: translateX(-100px) translateY(-80px); opacity: 0.9; }
+            62.5% { transform: translateX(60px) translateY(-120px); opacity: 1; }
+            75% { transform: translateX(-80px) translateY(-40px); opacity: 0.8; }
+            87.5% { transform: translateX(40px) translateY(-90px); opacity: 1; }
+        }
+
+        /* Navegación inferior */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 10, 10, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 1rem;
+            display: flex;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .nav-item {
+            color: var(--text-light);
+            text-decoration: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+            margin: 0 0.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .nav-item:hover::before {
+            left: 100%;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            color: var(--primary-gold);
+            border-color: var(--primary-gold);
+            background: rgba(212, 175, 55, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* Configuración */
+        .settings-panel {
+            position: fixed;
+            top: 50%;
+            right: -300px;
+            transform: translateY(-50%);
+            width: 280px;
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(212, 175, 55, 0.5);
+            border-radius: 15px;
+            padding: 1.5rem;
+            transition: right 0.3s ease;
+            z-index: 1001;
+        }
+
+        .settings-panel.open {
+            right: 20px;
+        }
+
+        .settings-toggle {
+            position: fixed;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+            background: rgba(212, 175, 55, 0.8);
+            color: var(--dark-bg);
+            border: none;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            cursor: pointer;
+            z-index: 1002;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .settings-toggle:hover {
+            transform: translateY(-50%) scale(1.1);
+            background: var(--primary-gold);
+        }
+
+        /* Chips de configuración */
+        .chip {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            margin: 0.25rem;
+            background: rgba(212, 175, 55, 0.2);
+            border: 1px solid var(--primary-gold);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .chip.active {
+            background: var(--primary-gold);
+            color: var(--dark-bg);
+        }
+
+        .chip:hover {
+            transform: scale(1.05);
+        }
+
+        /* Sección Acerca de */
+        .content-card {
+            background: rgba(26, 26, 26, 0.8);
+            backdrop-filter: blur(10px);
+            border: 2px solid var(--primary-gold);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .content-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(212, 175, 55, 0.3);
+        }
+
+        /* Timeline místico */
+        .timeline-item {
+            position: relative;
+            padding-left: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.5rem;
+            width: 16px;
+            height: 16px;
+            background: linear-gradient(45deg, var(--primary-gold), var(--primary-purple));
+            border-radius: 50%;
+            border: 3px solid var(--dark-bg);
+            box-shadow: 0 0 10px var(--primary-gold);
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: 7px;
+            top: 2rem;
+            width: 2px;
+            height: calc(100% - 1rem);
+            background: linear-gradient(to bottom, var(--primary-gold), transparent);
+        }
+
+        .timeline-item:last-child::after {
+            display: none;
+        }
+
+        /* Nota ética mejorada */
+        .ethical-notice {
+            background: linear-gradient(135deg, rgba(139, 79, 159, 0.2), rgba(212, 175, 55, 0.1));
+            border-left: 4px solid var(--primary-purple);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ethical-notice::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent, rgba(212, 175, 55, 0.05), transparent);
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
+        }
+
+        /* Animación de chispas mejorada */
+        .spark {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: radial-gradient(circle, #FFD700, #FFA500);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: sparkAnimation 1.5s ease-out forwards;
+        }
+
+        @keyframes sparkAnimation {
+            0% {
+                transform: scale(0) rotate(0deg);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.5) rotate(180deg);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(0.3) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Trayectoria de chispa hacia el botón */
+        .spark-trajectory {
+            position: absolute;
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .mystical-title {
+                font-size: 2.5rem;
+            }
+            
+            .card-circle {
+                width: 280px;
+                height: 280px;
+            }
+            
+            .floating-card {
+                width: 60px;
+                height: 90px;
+                font-size: 0.8rem;
+            }
+            
+            .mystical-button {
+                width: 70px;
+                height: 70px;
+            }
+            
+            .settings-panel {
+                width: 250px;
+                right: -250px;
+            }
+        }
+
+        /* Ocultar scrollbar */
+        ::-webkit-scrollbar {
+            width: 0px;
+            background: transparent;
+        }
+
+        /* Botones de descarga mejorados */
+        .download-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .download-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.6);
+        }
+
+        /* Ocultar elementos no deseados en la pantalla de lectura */
+        .reading-controls {
+            display: none;
+        }
+
+        /* Mostrar solo las cartas elegidas en la lectura */
+        .reading-display {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .reading-card {
+            width: 120px;
+            height: 200px;
+            background: linear-gradient(135deg, var(--primary-gold), var(--primary-purple));
+            border-radius: 12px;
+            border: 2px solid var(--primary-gold);
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .reading-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(212, 175, 55, 0.5);
+        }
+
+        .reading-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+    <!-- Fondo de estrellas -->
+    <div class="starry-background">
+        <div class="stars"></div>
+    </div>
+
+    <!-- Partículas flotantes -->
+    <div id="floatingParticles"></div>
+
+    <!-- Navegación superior -->
+    <nav class="navbar" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-moon text-2xl text-yellow-500"></i>
+                    <h1 class="text-xl font-bold" style="font-family: 'Sorts Mill Goudy', serif; color: var(--primary-gold);">Tarot Art Nouveau</h1>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button id="settingsToggle" class="settings-toggle">
+                        <i class="fas fa-cog"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Panel de configuración -->
+    <div class="settings-panel" id="settingsPanel">
+        <h3 class="text-lg font-bold mb-4 text-center" style="color: var(--primary-gold);">Configuración Mística</h3>
+        
+        <div class="mb-4">
+            <label class="block text-sm font-medium mb-2">Cartas Invertidas</label>
+            <div class="chip" id="reversedChip" data-setting="reversed">
+                <i class="fas fa-sync-alt mr-2"></i>
+                Permitir Invertidas
+            </div>
+        </div>
+        
+        <div class="mb-4">
+            <label class="block text-sm font-medium mb-2">Efectos de Sonido</label>
+            <div class="chip active" id="soundChip" data-setting="sound">
+                <i class="fas fa-volume-up mr-2"></i>
+                Sonido Activado
+            </div>
+        </div>
+        
+        <div class="mb-4">
+            <label class="block text-sm font-medium mb-2">Música Ambiental</label>
+            <div class="chip active" id="musicChip" data-setting="music">
+                <i class="fas fa-music mr-2"></i>
+                Música Activada
+            </div>
+        </div>
+        
+        <div class="mb-4">
+            <label class="block text-sm font-medium mb-2">Velocidad de Animación</label>
+            <select class="w-full p-2 rounded bg-gray-800 border border-yellow-500 text-white" id="animationSpeed">
+                <option value="slow">Lenta (Más Mística)</option>
+                <option value="normal" selected>Normal</option>
+                <option value="fast">Rápida</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Contenedor principal de secciones -->
+    <div class="main-container">
+        
+        <!-- Sección de Inicio -->
+        <section id="home" class="section active">
+            <div class="max-w-6xl mx-auto px-4">
+                <!-- Título principal -->
+                <div class="text-center mb-12 pt-8">
+                    <h1 class="mystical-title text-6xl md:text-8xl font-bold mb-4">
+                        Portal del Tarot
+                    </h1>
+                    <p class="text-xl md:text-2xl text-gray-300 mb-8 max-w-2xl mx-auto">
+                        Descubre los misterios que el universo tiene reservados para ti
+                    </p>
+                </div>
+
+                <!-- Círculo de cartas -->
+                <div class="card-circle mb-12">
+                    <div class="floating-card" data-card="0" data-angle="0">
+                        <i class="fas fa-star text-white text-lg"></i>
+                    </div>
+                    <div class="floating-card" data-card="1" data-angle="72">
+                        <i class="fas fa-moon text-white text-lg"></i>
+                    </div>
+                    <div class="floating-card" data-card="2" data-angle="144">
+                        <i class="fas fa-sun text-white text-lg"></i>
+                    </div>
+                    <div class="floating-card" data-card="3" data-angle="216">
+                        <i class="fas fa-eye text-white text-lg"></i>
+                    </div>
+                    <div class="floating-card" data-card="4" data-angle="288">
+                        <i class="fas fa-heart text-white text-lg"></i>
+                    </div>
+                    
+                    <!-- Botón central místico -->
+                    <button class="mystical-button" id="shuffleBtn">
+                        <i class="fas fa-random text-2xl"></i>
+                    </button>
+                </div>
+
+                <!-- Mensaje místico -->
+                <div class="text-center mb-8">
+                    <p class="text-lg text-gray-400 max-w-2xl mx-auto leading-relaxed">
+                        Las cartas danzan en el éter, esperando revelar sus secretos...
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de Lectura -->
+        <section id="reading" class="section">
+            <div class="max-w-6xl mx-auto px-4">
+                <!-- Header -->
+                <div class="text-center mb-12">
+                    <h1 class="mystical-title text-4xl md:text-6xl font-bold mb-4">Tu Destino Revelado</h1>
+                    <div class="guiding-light mx-auto" style="position: relative;"></div>
+                </div>
+
+                <!-- Área de lectura - SIMPLIFICADA -->
+                <div id="readingSection" class="mb-12">
+                    <!-- Las cartas seleccionadas se mostrarán aquí -->
+                    <div id="selectedCardsDisplay" class="reading-display mb-8">
+                        <!-- Las 3 cartas elegidas aparecerán aquí -->
+                    </div>
+
+                    <!-- Resultados de lectura -->
+                    <div id="readingResults" class="">
+                        <div id="interpretations" class="space-y-6">
+                            <!-- Las interpretaciones se generarán aquí -->
+                        </div>
+
+                        <!-- Opciones de descarga - MEJORADAS -->
+                        <div class="flex justify-center space-x-4 mt-8">
+                            <button id="downloadPDF" class="download-btn" style="background: linear-gradient(45deg, #dc2626, #b91c1c);" title="PDF">
+                                <i class="fas fa-file-pdf text-2xl text-white"></i>
+                            </button>
+                            <button id="downloadImage" class="download-btn" style="background: linear-gradient(45deg, #2563eb, #1d4ed8);" title="Imagen">
+                                <i class="fas fa-image text-2xl text-white"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección Acerca de -->
+        <section id="about" class="section">
+            <div class="max-w-4xl mx-auto px-4">
+                
+                <!-- Hero Section -->
+                <div class="text-center py-20">
+                    <div class="floating-particle" style="top: 20%; left: 10%; animation-delay: 0s;"></div>
+                    <div class="floating-particle" style="top: 60%; right: 15%; animation-delay: 2s;"></div>
+                    <div class="floating-particle" style="bottom: 30%; left: 20%; animation-delay: 4s;"></div>
+                    
+                    <div class="mb-8">
+                        <i class="fas fa-scroll text-6xl text-yellow-500 mb-4"></i>
+                    </div>
+                    
+                    <h1 class="mystical-title text-5xl md:text-7xl font-bold mb-6 leading-tight">
+                        Portal del<br>
+                        <span class="italic">Conocimiento</span>
+                    </h1>
+                    
+                    <p class="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+                        Un viaje a través del arte, la sabiduría ancestral y la reflexión personal
+                    </p>
+                </div>
+
+                <!-- Sobre el Proyecto -->
+                <section class="content-card">
+                    <h2 class="text-3xl font-bold mb-6 text-yellow-400" style="font-family: 'Sorts Mill Goudy', serif;">
+                        <i class="fas fa-palette text-yellow-500 mr-3"></i>
+                        Sobre el Portal Místico
+                    </h2>
+                    
+                    <div class="prose prose-lg text-gray-300 leading-relaxed">
+                        <p class="mb-6 text-lg">
+                            El <strong>Portal del Tarot Art Nouveau</strong> es una fusión única entre la sabiduría ancestral del tarot y la estética 
+                            elegante del movimiento Art Nouveau. Cada carta ha sido cuidadosamente diseñada para reflejar 
+                            no solo el significado tradicional del arcano, sino también la belleza ornamental y los patrones 
+                            orgánicos que caracterizan este icónico estilo artístico.
+                        </p>
+                        
+                        <p class="mb-6 text-lg">
+                            Nuestra misión es crear una herramienta de reflexión personal que combine el poder simbólico 
+                            del tarot con una experiencia visual excepcional. Creemos que el arte puede ser una puerta 
+                            hacia la introspección y el crecimiento personal, y que cada lectura es un viaje único 
+                            a través del misterio y la autodescubrimiento.
+                        </p>
+                        
+                        <p class="text-lg">
+                            Con <strong>78 cartas únicas</strong>, desde los Arcanos Mayores hasta los Menores, cada diseño incorpora 
+                            elementos característicos del Art Nouveau: líneas sinuosas, motivos florales, y una paleta 
+                            de colores que evoca la época dorada de este movimiento artístico, todo envuelto en 
+                            una atmósfera mística y cinematográfica.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Nota Ética Mejorada -->
+                <section class="content-card">
+                    <h2 class="text-3xl font-bold mb-6 text-purple-400" style="font-family: 'Sorts Mill Goudy', serif;">
+                        <i class="fas fa-balance-scale text-purple-500 mr-3"></i>
+                        Sabiduría Responsable
+                    </h2>
+                    
+                    <div class="ethical-notice">
+                        <div class="flex items-start space-x-4">
+                            <div class="flex-shrink-0">
+                                <i class="fas fa-exclamation-triangle text-purple-400 text-2xl mt-1"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold text-purple-300 mb-2">Uso Recreativo y de Reflexión</h3>
+                                <p class="text-gray-300 leading-relaxed">
+                                    Este portal está diseñado exclusivamente para fines recreativos y de reflexión personal. 
+                                    No sustituye el consejo profesional de médicos, terapeutas o cualquier otro profesional calificado.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="grid md:grid-cols-2 gap-6 mt-6">
+                        <div class="bg-gray-900/50 p-4 rounded-lg border border-yellow-500/30">
+                            <h4 class="font-bold text-yellow-400 mb-2">
+                                <i class="fas fa-heart mr-2"></i>
+                                Responsabilidad del Usuario
+                            </h4>
+                            <p class="text-gray-300 text-sm">
+                                Las interpretaciones son guías simbólicas basadas en tradiciones esotéricas. 
+                                No deben tomarse como verdades absolutas sino como puntos de partida para la reflexión.
+                            </p>
+                        </div>
+                        
+                        <div class="bg-gray-900/50 p-4 rounded-lg border border-green-500/30">
+                            <h4 class="font-bold text-green-400 mb-2">
+                                <i class="fas fa-brain mr-2"></i>
+                                Salud Mental
+                            </h4>
+                            <p class="text-gray-300 text-sm">
+                                Si experimentas dificultades emocionales, busca ayuda profesional. 
+                                Este portal no es una herramienta terapéutica sino una experiencia de crecimiento personal.
+                            </p>
+                        </div>
+                        
+                        <div class="bg-gray-900/50 p-4 rounded-lg border border-blue-500/30">
+                            <h4 class="font-bold text-blue-400 mb-2">
+                                <i class="fas fa-lightbulb mr-2"></i>
+                                Toma de Decisiones
+                            </h4>
+                            <p class="text-gray-300 text-sm">
+                                No bases decisiones importantes únicamente en las lecturas. 
+                                Úsalas como inspiración para tu propio proceso de toma de decisiones.
+                            </p>
+                        </div>
+                        
+                        <div class="bg-gray-900/50 p-4 rounded-lg border border-purple-500/30">
+                            <h4 class="font-bold text-purple-400 mb-2">
+                                <i class="fas fa-sparkles mr-2"></i>
+                                Espíritu de la Herramienta
+                            </h4>
+                            <p class="text-gray-300 text-sm">
+                                El verdadero valor reside en su capacidad para estimular la introspección, 
+                                fomentar la auto-reflexión y ayudarte a explorar diferentes perspectivas.
+                            </p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </section>
+    </div>
+
+    <!-- Navegación inferior -->
+    <nav class="bottom-nav">
+        <a href="#" class="nav-item active" data-section="home">
+            <i class="fas fa-home mr-2"></i>
+            Inicio
+        </a>
+        <a href="#" class="nav-item" data-section="reading">
+            <i class="fas fa-hand-holding-heart mr-2"></i>
+            Lectura
+        </a>
+        <a href="#" class="nav-item" data-section="about">
+            <i class="fas fa-scroll mr-2"></i>
+            Acerca de
+        </a>
+    </nav>
+
+    <script>
+        // Sistema de audio mejorado - CON SONIDO AMBIENTAL DE VIENTO Y CORRECCIONES
+        class EnhancedAudio {
+            constructor() {
+                this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                this.sounds = {};
+                this.musicEnabled = true;
+                this.soundEnabled = true;
+                this.currentMusic = null;
+                this.hasPlayedWelcome = false;
+                this.init();
+            }
+
+            init() {
+                // Crear sonidos místicos originales
+                this.createMysticalSound('hover', 440, 0.3, 'sine');
+                this.createMysticalSound('click', 660, 0.2, 'triangle');
+                this.createMysticalSound('select', 880, 0.5, 'sine');
+                this.createMysticalSound('reveal', 1100, 0.8, 'square');
+                this.createMysticalSound('success', 550, 1.0, 'sine');
+                this.createMysticalSound('spark', 2000, 0.4, 'sine');
+            }
+
+            createMysticalSound(name, frequency, duration, type = 'sine') {
+                this.sounds[name] = { frequency, duration, type };
+            }
+
+            // SONIDO DE VIENTO AMBIENTAL (Restaurado)
+            playWindSound() {
+                if (!this.soundEnabled) return;
+                
+                const oscillator = this.audioContext.createOscillator();
+                const gainNode = this.audioContext.createGain();
+                const filter = this.audioContext.createBiquadFilter();
+                
+                oscillator.connect(filter);
+                filter.connect(gainNode);
+                gainNode.connect(this.audioContext.destination);
+                
+                // Crear sonido de viento con ruido blanco modulado
+                oscillator.type = 'sawtooth';
+                oscillator.frequency.setValueAtTime(100, this.audioContext.currentTime);
+                oscillator.frequency.exponentialRampToValueAtTime(50, this.audioContext.currentTime + 2);
+                
+                filter.type = 'lowpass';
+                filter.frequency.setValueAtTime(1000, this.audioContext.currentTime);
+                filter.frequency.exponentialRampToValueAtTime(200, this.audioContext.currentTime + 2);
+                
+                gainNode.gain.setValueAtTime(0.3, this.audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, this.audioContext.currentTime + 2);
+                
+                oscillator.start(this.audioContext.currentTime);
+                oscillator.stop(this.audioContext.currentTime + 2);
+            }
+
+            playSound(name, volume = 0.3) {
+                if (!this.soundEnabled) return;
+                
+                const sound = this.sounds[name];
+                if (!sound) return;
+
+                const oscillator = this.audioContext.createOscillator();
+                const gainNode = this.audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(this.audioContext.destination);
+                
+                oscillator.frequency.setValueAtTime(sound.frequency, this.audioContext.currentTime);
+                oscillator.type = sound.type;
+                
+                // Lógica de sonido de chispa original restaurada
+                if (name === 'spark') {
+                    const harmonic1 = this.audioContext.createOscillator();
+                    const harmonic2 = this.audioContext.createOscillator();
+                    const gain1 = this.audioContext.createGain();
+                    const gain2 = this.audioContext.createGain();
+                    
+                    harmonic1.connect(gain1);
+                    harmonic2.connect(gain2);
+                    gain1.connect(gainNode);
+                    gain2.connect(gainNode);
+                    
+                    harmonic1.frequency.setValueAtTime(sound.frequency * 2, this.audioContext.currentTime);
+                    harmonic2.frequency.setValueAtTime(sound.frequency * 3, this.audioContext.currentTime);
+                    harmonic1.type = 'sine';
+                    harmonic2.type = 'sine';
+                    
+                    gain1.gain.setValueAtTime(0.2, this.audioContext.currentTime);
+                    gain2.gain.setValueAtTime(0.1, this.audioContext.currentTime);
+                    gain1.gain.exponentialRampToValueAtTime(0.01, this.audioContext.currentTime + sound.duration);
+                    gain2.gain.exponentialRampToValueAtTime(0.01, this.audioContext.currentTime + sound.duration);
+                    
+                    harmonic1.start(this.audioContext.currentTime);
+                    harmonic2.start(this.audioContext.currentTime);
+                    harmonic1.stop(this.audioContext.currentTime + sound.duration);
+                    harmonic2.stop(this.audioContext.currentTime + sound.duration);
+                }
+                
+                if (name === 'reveal') {
+                    oscillator.frequency.exponentialRampToValueAtTime(
+                        sound.frequency * 1.5, 
+                        this.audioContext.currentTime + sound.duration * 0.5
+                    );
+                    oscillator.frequency.exponentialRampToValueAtTime(
+                        sound.frequency, 
+                        this.audioContext.currentTime + sound.duration
+                    );
+                }
+                
+                gainNode.gain.setValueAtTime(volume * 0.7, this.audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, this.audioContext.currentTime + sound.duration);
+                
+                oscillator.start(this.audioContext.currentTime);
+                oscillator.stop(this.audioContext.currentTime + sound.duration);
+            }
+
+            playAmbientMusic() {
+                if (!this.musicEnabled) return;
+                
+                const notes = [220, 246, 261, 293, 329, 349, 392, 440, 493, 523];
+                let noteIndex = 0;
+                
+                const playMelody = () => {
+                    if (this.musicEnabled) {
+                        this.playNote(notes[noteIndex % notes.length], 2.0, 0.08);
+                        noteIndex++;
+                        const delay = this.isIntense ? 1200 : 2500;
+                        this.currentMusic = setTimeout(playMelody, delay);
+                    }
+                };
+                
+                playMelody();
+            }
+
+            playNote(frequency, duration, volume = 0.1) {
+                const oscillator = this.audioContext.createOscillator();
+                const gainNode = this.audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(this.audioContext.destination);
+                
+                oscillator.frequency.setValueAtTime(frequency, this.audioContext.currentTime);
+                oscillator.type = 'sine';
+                
+                gainNode.gain.setValueAtTime(volume, this.audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, this.audioContext.currentTime + duration);
+                
+                oscillator.start(this.audioContext.currentTime);
+                oscillator.stop(this.audioContext.currentTime + duration);
+            }
+
+            setIntensity(intense) {
+                this.isIntense = intense;
+            }
+
+            speakMystical(text, rate = 0.8, pitch = 0.7) {
+                if (!this.soundEnabled || !('speechSynthesis' in window)) return;
+                
+                // CORRECCIÓN: Cancelar audio previo para evitar superposición
+                window.speechSynthesis.cancel();
+                
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'es-ES';
+                utterance.rate = rate; 
+                utterance.pitch = pitch;
+                utterance.volume = 0.6;
+                speechSynthesis.speak(utterance);
+            }
+        }
+
+        // Sistema de partículas místicas (Restaurado)
+        class MysticalParticleSystem {
+            constructor() {
+                this.particles = [];
+                this.init();
+            }
+
+            init() {
+                setInterval(() => {
+                    if (Math.random() > 0.7) {
+                        this.createParticle();
+                    }
+                }, 1000);
+            }
+
+            createParticle() {
+                const particle = document.createElement('div');
+                particle.className = 'floating-particle';
+                particle.style.left = Math.random() * window.innerWidth + 'px';
+                particle.style.animationDuration = (Math.random() * 6 + 4) + 's';
+                particle.style.animationDelay = Math.random() * 2 + 's';
+                
+                document.getElementById('floatingParticles').appendChild(particle);
+                
+                setTimeout(() => {
+                    if (particle.parentNode) {
+                        particle.parentNode.removeChild(particle);
+                    }
+                }, 10000);
+            }
+
+            createSpark(x, y, count = 16) {
+                for (let i = 0; i < count; i++) {
+                    const spark = document.createElement('div');
+                    spark.className = 'spark';
+                    spark.style.left = x + 'px';
+                    spark.style.top = y + 'px';
+                    
+                    const angle = (Math.PI * 2 * i) / count + (Math.random() - 0.5) * 0.5;
+                    const distance = 30 + Math.random() * 80;
+                    const tx = Math.cos(angle) * distance;
+                    const ty = Math.sin(angle) * distance;
+                    
+                    spark.style.setProperty('--tx', tx + 'px');
+                    spark.style.setProperty('--ty', ty + 'px');
+                    
+                    spark.style.animation = `sparkAnimation 1.5s ease-out forwards`;
+                    spark.style.animationDelay = (Math.random() * 0.3) + 's';
+                    
+                    document.body.appendChild(spark);
+                    
+                    setTimeout(() => {
+                        if (spark.parentNode) {
+                            spark.parentNode.removeChild(spark);
+                        }
+                    }, 2000);
+                }
+                
+                setTimeout(() => {
+                    enhancedAudio.playSound('spark', 0.5);
+                }, Math.random() * 200);
+            }
+
+            createBurst(x, y) {
+                this.createSpark(x, y, 20);
+            }
+        }
+
+        // Control de navegación (Restaurado)
+        class NavbarController {
+            constructor() {
+                this.navbar = document.getElementById('navbar');
+                this.lastScrollY = window.scrollY;
+                this.init();
+            }
+
+            init() {
+                window.addEventListener('scroll', () => {
+                    const currentScrollY = window.scrollY;
+                    
+                    if (currentScrollY > this.lastScrollY && currentScrollY > 50) {
+                        this.navbar.classList.add('fading');
+                    } else {
+                        this.navbar.classList.remove('fading');
+                    }
+                    
+                    this.lastScrollY = currentScrollY;
+                });
+            }
+        }
+
+        // Sistema de navegación entre secciones (Con mensajes originales)
+        class NavigationSystem {
+            constructor() {
+                this.currentSection = 'home';
+                this.sections = document.querySelectorAll('.section');
+                this.navItems = document.querySelectorAll('.nav-item');
+                this.init();
+            }
+
+            init() {
+                this.navItems.forEach(item => {
+                    item.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const targetSection = item.dataset.section;
+                        this.navigateToSection(targetSection);
+                    });
+                });
+            }
+
+            navigateToSection(targetSection) {
+                if (targetSection === this.currentSection) return;
+
+                const currentSectionEl = document.getElementById(this.currentSection);
+                const targetSectionEl = document.getElementById(targetSection);
+                
+                this.navItems.forEach(item => {
+                    item.classList.remove('active');
+                });
+                document.querySelector(`[data-section="${targetSection}"]`).classList.add('active');
+
+                // CORRECCIÓN: Limpieza agresiva al volver al Home
+                if (targetSection === 'home') {
+                    resetHomeCards();
+                }
+
+                currentSectionEl.classList.remove('active');
+                currentSectionEl.classList.add('prev');
+                
+                setTimeout(() => {
+                    targetSectionEl.classList.add('active');
+                    currentSectionEl.classList.remove('prev');
+                }, 100);
+
+                this.currentSection = targetSection;
+                enhancedAudio.playSound('click');
+
+                this.playSectionMessage(targetSection);
+            }
+
+            playSectionMessage(section) {
+                // Mensajes originales preservados
+                const messages = {
+                    home: [
+                        "El portal te espera",
+                        "Las estrellas guían",
+                        "Misterios por descubrir",
+                        "Energía fluyente"
+                    ],
+                    reading: [
+                        "El destino habla",
+                        "Cartas reveladas",
+                        "Futuro presente",
+                        "Sabiduría ancestral"
+                    ],
+                    about: [
+                        "Conocimiento eterno",
+                        "Sabiduría oculta",
+                        "Verdad universal",
+                        "Luz en la oscuridad"
+                    ]
+                };
+
+                const sectionMessages = messages[section];
+                const randomMessage = sectionMessages[Math.floor(Math.random() * sectionMessages.length)];
+                
+                setTimeout(() => {
+                    enhancedAudio.speakMystical(randomMessage, 0.8, 0.6);
+                }, 500);
+            }
+        }
+
+        // VARIABLES GLOBALES
+        let tarotCards = []; // Se llenará desde JSON
+        let selectedCards = [];
+        let isShuffling = false;
+        let allowReversed = false;
+        let selectedHomeCards = 0;
+        let currentReadingMessageIndex = 0;
+        let cardPositions = [];
+
+        // Inicialización de sistemas
+        const enhancedAudio = new EnhancedAudio();
+        const particleSystem = new MysticalParticleSystem();
+        const navbarController = new NavbarController();
+        const navigationSystem = new NavigationSystem();
+
+        // INICIALIZACIÓN DE LA APLICACIÓN
+        document.addEventListener('DOMContentLoaded', function() {
+            loadTarotData(); // CORRECCIÓN: Cargar JSON
+            setupEventListeners();
+            startAmbientExperience();
+            createFloatingParticles();
+            saveCardPositions();
+        });
+
+        // CORRECCIÓN: Función para cargar el JSON externo
+        async function loadTarotData() {
+            try {
+                const response = await fetch('tarot.json');
+                const data = await response.json();
+                // Detectar si devuelve objeto con propiedad tarotCards o array directo
+                tarotCards = data.tarotCards ? data.tarotCards : data;
+                console.log("Cartas cargadas:", tarotCards.length);
+            } catch (error) {
+                console.error("Error cargando tarot.json:", error);
+                // Fallback mínimo por si falla la carga local
+                enhancedAudio.speakMystical("Error conectando con el oráculo.");
+            }
+        }
+
+        function saveCardPositions() {
+            const cards = document.querySelectorAll('.floating-card');
+            cards.forEach((card, index) => {
+                cardPositions[index] = {
+                    angle: parseFloat(card.dataset.angle) || (index * 72),
+                    element: card
+                };
+            });
+        }
+
+        function setupEventListeners() {
+            const shuffleBtn = document.getElementById('shuffleBtn');
+            if (shuffleBtn) {
+                shuffleBtn.addEventListener('click', shuffleMysticalCards);
+            }
+
+            document.querySelectorAll('.floating-card').forEach((card, index) => {
+                card.addEventListener('mouseenter', () => {
+                    enhancedAudio.playSound('hover');
+                    card.style.animationPlayState = 'paused';
+                });
+
+                card.addEventListener('mouseleave', () => {
+                    card.style.animationPlayState = 'running';
+                });
+
+                card.addEventListener('click', () => {
+                    selectHomeCard(card, index);
+                });
+            });
+
+            // Panel de configuración (RESTAURADO)
+            const settingsToggle = document.getElementById('settingsToggle');
+            if (settingsToggle) {
+                settingsToggle.addEventListener('click', () => {
+                    const panel = document.getElementById('settingsPanel');
+                    panel.classList.toggle('open');
+                    enhancedAudio.playSound('click');
+                });
+            }
+
+            // Chips de configuración (RESTAURADO)
+            document.querySelectorAll('.chip').forEach(chip => {
+                chip.addEventListener('click', () => {
+                    chip.classList.toggle('active');
+                    enhancedAudio.playSound('click');
+                    
+                    const setting = chip.dataset.setting;
+                    if (setting === 'sound') {
+                        enhancedAudio.soundEnabled = chip.classList.contains('active');
+                    } else if (setting === 'music') {
+                        enhancedAudio.musicEnabled = chip.classList.contains('active');
+                    } else if (setting === 'reversed') {
+                        allowReversed = chip.classList.contains('active');
+                    }
+                });
+            });
+
+            document.getElementById('downloadPDF')?.addEventListener('click', downloadAsPDF);
+            document.getElementById('downloadImage')?.addEventListener('click', downloadAsImage);
+        }
+
+        function selectHomeCard(card, index) {
+            selectedHomeCards++;
+            
+            // CORRECCIÓN: Asegurar que la carta sepa dónde estaba antes de moverse
+            if (!card.style.getPropertyValue('--current-rotation')) {
+                card.style.setProperty('--current-rotation', cardPositions[index].angle + 'deg');
+            }
+            
+            const rect = card.getBoundingClientRect();
+            particleSystem.createSpark(rect.left + rect.width/2, rect.top + rect.height/2);
+            
+            card.classList.add('card-to-center');
+            
+            const messages = [
+                "Elegido por el destino",
+                "La carta te llama",
+                "Misterio revelado",
+                "Energía canalizada",
+                "Sabia elección",
+                "Un hilo antiguo te guía", 
+                "El velo se abre", 
+                "La energía despierta", 
+                "Tu intuición susurra", 
+                "Se mueve lo oculto", 
+                "Algo ancestral responde", 
+                "Un presagio toma forma", 
+                "Una señal toma vida", 
+                "La visión se aclara",
+                "La verdad se desvela",
+                ""
+            ];
+            const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+            enhancedAudio.speakMystical(randomMessage, 0.8, 0.6);
+            
+            if (selectedHomeCards >= 3) {
+                setTimeout(() => {
+                    selectRandomCardsForReading();
+                    navigationSystem.navigateToSection('reading');
+                    enhancedAudio.speakMystical("Las cartas te esperan", 0.8, 0.6);
+                }, 2000);
+            }
+        }
+
+        function selectRandomCardsForReading() {
+            if (tarotCards.length === 0) return; // Proteger si no ha cargado el JSON
+            
+            selectedCards = [];
+            const availableCards = [...tarotCards];
+            
+            for (let i = 0; i < 3; i++) {
+                if (availableCards.length === 0) break;
+                const randomIndex = Math.floor(Math.random() * availableCards.length);
+                const card = availableCards.splice(randomIndex, 1)[0];
+                const position = ['pasado', 'presente', 'futuro'][i];
+                const isReversed = allowReversed && Math.random() > 0.5;
+                
+                selectedCards.push({
+                    ...card,
+                    position: position,
+                    reversed: isReversed
+                });
+            }
+            
+            displaySelectedCards();
+            showMysticalReading();
+        }
+
+        function displaySelectedCards() {
+            const displayContainer = document.getElementById('selectedCardsDisplay');
+            if (!displayContainer) return;
+            
+            displayContainer.innerHTML = '';
+            
+            selectedCards.forEach((card, index) => {
+                // CORRECCIÓN: Usar ruta de imagen del JSON o construirla si falla
+                const imagePath = card.image ? card.image : `cards/${card.id}.png`;
+
+                const cardElement = document.createElement('div');
+                cardElement.className = 'reading-card';
+                cardElement.innerHTML = `
+                    <img src="${imagePath}" alt="${card.name}" onerror="this.src='https://placehold.co/120x200/gold/black?text=${card.name}'">
+                    ${card.reversed ? '<div class="absolute top-2 right-2 bg-purple-500 text-white px-2 py-1 rounded text-xs">Invertida</div>' : ''}
+                `;
+                displayContainer.appendChild(cardElement);
+            });
+        }
+
+        // ANIMACIÓN MEJORADA DE BARAJADO CON SONIDO DE VIENTO
+        function shuffleMysticalCards() {
+            if (isShuffling || tarotCards.length === 0) return;
+            
+            isShuffling = true;
+            enhancedAudio.playWindSound();
+            enhancedAudio.setIntensity(true);
+            
+            const cards = document.querySelectorAll('.floating-card');
+            
+            // 1. Mover todas las cartas al centro
+            cards.forEach((card, index) => {
+                card.style.animation = 'none';
+                card.style.setProperty('--current-rotation', cardPositions[index].angle + 'deg');
+                card.classList.add('card-to-center');
+            });
+            
+            // 2. Efecto implosión/desaparición
+            setTimeout(() => {
+                // Hacer que las cartas sean invisibles y pequeñas (Efecto solicitado)
+                cards.forEach(card => {
+                    card.style.transition = 'all 0.5s ease';
+                    card.style.opacity = '0';
+                    card.style.transform = 'scale(0.1)'; // Se hacen pequeñitas como chispas
+                    card.classList.remove('card-to-center');
+                });
+                
+                // 3. Crear chispas en el centro
+                const centerX = window.innerWidth / 2;
+                const centerY = window.innerHeight / 2;
+                particleSystem.createBurst(centerX, centerY);
+                
+                // 4. Navegar a lectura después de la explosión
+                setTimeout(() => {
+                    selectRandomCardsForReading();
+                    navigationSystem.navigateToSection('reading');
+                    
+                    isShuffling = false;
+                    enhancedAudio.setIntensity(false);
+                    
+                    const messages = [
+                        "Las cartas se han barajado",
+                        "El destino se reorganiza",
+                        "Nueva energía fluye",
+                        "El cosmos se alinea"
+                    ];
+                    const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+                    enhancedAudio.speakMystical(randomMessage, 0.8, 0.6);
+                }, 1000);
+            }, 1500);
+        }
+
+        function showMysticalReading() {
+            const resultsDiv = document.getElementById('readingResults');
+            const interpretationsDiv = document.getElementById('interpretations');
+            
+            if (!resultsDiv || !interpretationsDiv) return;
+            
+            interpretationsDiv.innerHTML = '';
+            
+            selectedCards.forEach((card, index) => {
+                const interpretationCard = createMysticalInterpretation(card, index);
+                interpretationsDiv.appendChild(interpretationCard);
+            });
+            
+            setTimeout(() => {
+                playReadingMessage();
+            }, 1000);
+        }
+
+        function playReadingMessage() {
+            // Mensajes de lectura originales restaurados
+            const readingMessages = [
+                "El destino ha sido revelado",
+                "Las cartas hablan con claridad",
+                "Tu camino está iluminado",
+                "El misterio se ha desvelado"
+            ];
+            
+            const message = readingMessages[currentReadingMessageIndex % readingMessages.length];
+            enhancedAudio.speakMystical(message, 0.8, 0.6);
+            currentReadingMessageIndex++;
+        }
+
+        function createMysticalInterpretation(card, index) {
+            const div = document.createElement('div');
+            div.className = 'content-card';
+            
+            const positionNames = {
+                'pasado': 'El Eco del Pasado',
+                'presente': 'El Momento Presente',
+                'futuro': 'El Destino Futuro'
+            };
+            
+            const interpretation = card.reversed ? card.reversedInterpretation : card.interpretation;
+            const imagePath = card.image ? card.image : `cards/${card.id}.png`;
+            
+            div.innerHTML = `
+                <div class="flex items-start space-x-6">
+                    <div class="flex-shrink-0 relative">
+                        <img src="${imagePath}" alt="${card.name}" class="w-24 h-40 object-cover rounded-lg shadow-lg" onerror="this.src='https://placehold.co/120x200/gold/black?text=${card.name}'">
+                        ${card.reversed ? '<div class="text-center mt-1"><span class="text-xs bg-purple-500 text-white px-2 py-1 rounded">Invertida</span></div>' : ''}
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex items-center space-x-3 mb-3">
+                            <h3 class="text-xl font-bold text-yellow-400" style="font-family: 'Sorts Mill Goudy', serif;">${card.name}</h3>
+                            <span class="bg-yellow-400 text-black px-3 py-1 rounded-full text-xs font-bold">${positionNames[card.position]}</span>
+                        </div>
+                        <p class="text-sm text-yellow-300 mb-4"><strong>Palabra clave:</strong> ${card.keyword}</p>
+                        <p class="text-gray-300 leading-relaxed italic">"${interpretation}"</p>
+                    </div>
+                </div>
+            `;
+            
+            return div;
+        }
+
+        function downloadAsPDF() {
+            enhancedAudio.playSound('click');
+            const readingContent = selectedCards.map(card => {
+                const interpretation = card.reversed ? card.reversedInterpretation : card.interpretation;
+                return `${card.name} (${card.position.toUpperCase()}): ${interpretation}`;
+            }).join('\n\n');
+            
+            const content = `Tu Lectura de Tarot\n\n${readingContent}\n\nGenerado el ${new Date().toLocaleDateString()}`;
+            const blob = new Blob([content], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'lectura-tarot.txt';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        function downloadAsImage() {
+            enhancedAudio.playSound('click');
+            alert('Función de descarga de imagen activada. En una implementación completa, esto generaría una imagen de tu lectura.');
+        }
+
+        // CORRECCIÓN: RESET AGRESIVO PARA QUE REAPAREZCAN LAS CARTAS
+        function resetHomeCards() {
+            selectedHomeCards = 0;
+            document.querySelectorAll('.floating-card').forEach((card, index) => {
+                // Limpieza total de estilos inline que pudieron quedar
+                card.style.removeProperty('opacity');
+                card.style.removeProperty('transform');
+                card.style.removeProperty('--current-rotation');
+                
+                // Reaplicar estilos base
+                card.style.display = 'flex';
+                card.style.animation = `orbit 20s linear infinite`;
+                card.style.animationDelay = `${-index * 4}s`;
+                
+                // Eliminar clases de animación
+                card.classList.remove('card-to-center', 'card-reappear');
+                
+                // Resetear ángulo data
+                card.dataset.angle = index * 72;
+            });
+        }
+
+        function createFloatingParticles() {
+            setInterval(() => {
+                if (Math.random() > 0.7) {
+                    particleSystem.createParticle();
+                }
+            }, 2000);
+        }
+
+        function startAmbientExperience() {
+            setTimeout(() => {
+                enhancedAudio.playAmbientMusic();
+            }, 3000);
+            
+            // Mensaje de bienvenida místico original
+            if (!enhancedAudio.hasPlayedWelcome) {
+                setTimeout(() => {
+                    enhancedAudio.speakMystical("Bienvenido al Portal del Tarot. Las cartas del destino te esperan para revelar sus secretos. Qué deparará esta vez? Elige 3 cartas para saberlo...", 0.8, 0.6);
+                    enhancedAudio.hasPlayedWelcome = true;
+                }, 4000);
+            }
+        }
+
+        // Hook de navegación para resetear cartas al volver a Home
+        const originalNavigateToSection = navigationSystem.navigateToSection;
+        navigationSystem.navigateToSection = function(targetSection) {
+            if (targetSection === 'home') {
+                resetHomeCards();
+            }
+            originalNavigateToSection.call(this, targetSection);
+        };
+    </script>
+</body>
+</html>

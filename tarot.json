@@ -1,0 +1,164 @@
+[
+  {
+    "id": "ace_cups",
+    "name": "As de Copas",
+    "type": "minor",
+    "suit": "cups",
+    "keyword": "Origen emocional",
+    "interpretation": "Un cuenco de cristal te contempla. Sus aguas nacen del mismo lugar donde los sueños beben antes de derramarse. Pronto, alguien ofrecerá afecto sin condiciones, o quizás tú serás la fuente. ¿Estás listo para recibir sin derramar? La respuesta late en tu pecho como una marea desconocida.",
+    "reversedInterpretation": "El cuenco se agrieta. El amor que llega gotera, no fluye. Te das a quien no sabe contener. Deshidratas emociones ajenas mientras la sed te consume desde adentro.",
+    "image": "cards/ace_cups.png"
+  },
+  {
+    "id": "ace_pentacles",
+    "name": "As de Pentáculos",
+    "type": "minor",
+    "suit": "pentacles",
+    "keyword": "Semilla material",
+    "interpretation": "Entre tus dedos, una moneda que no es moneda, sino semilla. La tierra la reclama. El primer pacto con el mundo tangible: tu cuerpo convertido en árbol de abundancia. Una oportunidad brotará de lo que ahora consideras infértil. Planta sin miedo.",
+    "image": "cards/ace_pentacles.png"
+  },
+  {
+    "id": "ace_swords",
+    "name": "As de Espadas",
+    "type": "minor",
+    "suit": "swords",
+    "keyword": "Verdad cortante",
+    "interpretation": "La hoja desciende. No para matar, para desnudar. Una revelación cercana cortará tus mentiras preferidas. El dolor será exactitud. La verdad, quirúrgica. Respira antes de que el filo te encuentre sin defensas.",
+    "reversedInterpretation": "La espada se oxidó en tu garganta. Dices verdades a medias que te amordazan. La claridad se vuelve ceguera autoimpuesta. Afilas excusas en lugar de coraje.",
+    "image": "cards/ace_swords.png"
+  },
+  {
+    "id": "ace_wands",
+    "name": "As de Bastos",
+    "type": "minor",
+    "suit": "wands",
+    "keyword": "Chispa creativa",
+    "interpretation": "Una llama te elige. No pregunta permiso. Esta chispa ancestral exige carne de tu carne: acción sin mapa, creación sin garantía. El primer fuego es siempre indomable. ¿Alimentas la hoguera o la observas morir?",
+    "image": "cards/ace_wands.png"
+  },
+  {
+    "id": "el-carro",
+    "name": "El Carro",
+    "type": "major",
+    "suit": null,
+    "keyword": "Victoria controlada",
+    "interpretation": "Dos bestias tiran de ti en direcciones opuestas. Tú mantienes las riendas con los dientes. La victoria no es domar, es cabalgar el descontrol. Pronto diriges fuerzas que no entiendes pero que obedecen tu voluntad de hierro.",
+    "reversedInterpretation": "Las riendas se rompen. El carro se vuelca sobre tu orgullo. Querías controlarlo todo y ahora todo te controla. La derrota es aprender a soltar antes de que te arrastren.",
+    "image": "cards/el-carro.jpg"
+  },
+  {
+    "id": "emperor",
+    "name": "El Emperador",
+    "type": "major",
+    "suit": null,
+    "keyword": "Autoridad estructurada",
+    "interpretation": "Tu espalda se vuelve trono. Las leyes que dictas vienen de un lugar más viejo que tú: el hueso, la piedra, el orden primordial. Alguien buscará tu mando, o tú finalmente ejercerás el tuyo. La estructura es libertad disfrazada.",
+    "image": "cards/emperor.png"
+  },
+  {
+    "id": "hermit",
+    "name": "El Ermitaño",
+    "type": "major",
+    "suit": null,
+    "keyword": "Luz solitaria",
+    "interpretation": "La linterna ilumina solo tu próximo paso. El resto es niebla y pertenecerte. La respuesta que buscas no está afuera, sino en el eco de tu soledad. Camina. La verdad se revela a quien no teme perderse.",
+    "reversedInterpretation": "La linterna se apaga. La soledad se vuelve celda. Te escondes del mundo porque el mundo te devolvió vacío. La luz interior necesita ventanas, no muros.",
+    "image": "cards/hermit.png"
+  },
+  {
+    "id": "el-hierofante",
+    "name": "El Hierofante",
+    "type": "major",
+    "suit": null,
+    "keyword": "Tradición sagrada",
+    "interpretation": "Una llave se te entrega, pero no abre puertas: abre tiempos. La tradición habla en tu oído con voz de ancestro. Pronto, un maestro aparecerá, o tú serás el maestro que alguien necesita. La enseñanza es recordar lo olvidado.",
+    "reversedInterpretation": "Las llaves se derriten en tu mano. La tradición se vuelve jaula. Debes ser tu propio hereje, tu propio profeta. Rompe el libro para leer entre sus páginas secretas.",
+    "image": "cards/el-hierofante.jpg"
+  },
+  {
+    "id": "fool",
+    "name": "El Loco",
+    "type": "major",
+    "suit": null,
+    "keyword": "Salto cósmico",
+    "interpretation": "El abismo te sonríe. No hay red, pero tampoco necesitas una: tus alas son la ausencia de miedo. El caos que temes es el viento que te lleva. Salta. El universo atrapará a quien se atreve a volar sin mapa.",
+    "reversedInterpretation": "El abismo te mira sin sonreír. Saltaste sin ganas, solo por impulso. La caída te enseña que la libertad sin raíces es sólo caos. Ahora, construye tus alas con los restos.",
+    "image": "cards/fool.png"
+  },
+  {
+    "id": "magician",
+    "name": "El Mago",
+    "type": "major",
+    "suit": null,
+    "keyword": "Alquimista",
+    "interpretation": "Tus manos ya saben el conjuro. Los elementos esperan tu palabra para obedecer. No es magia, es voluntad convertida en objeto. Pronto, lo invisible se vuelve tangible por tu mera decisión. El milagro eres tú, canalizando.",
+    "image": "cards/magician.png"
+  },
+  {
+    "id": "empress",
+    "name": "La Emperatriz",
+    "type": "major",
+    "suit": null,
+    "keyword": "Madre creadora",
+    "interpretation": "Tu vienter no es útero, es tierra. Lo que plantas ya brota sin tu permiso. La abundancia te elige como conducto. Pronto, crearás sin esfuerzo, porque la naturaleza obra a través tuyo. Sé el jardín, no el jardinero.",
+    "reversedInterpretation": "La tierra se agota. Das sin recibir, creas sin nutrirte. La maternidad se vuelve martirio. Aprende a regarte primero o el desierto devorará tu esencia.",
+    "image": "cards/empress.png"
+  },
+  {
+    "id": "high_priestess",
+    "name": "La Suma Sacerdotisa",
+    "type": "major",
+    "suit": null,
+    "keyword": "Intuición profunda",
+    "interpretation": "El espejo de agua negra te mira sin reflejar tu rostro. Refleja tu destino. La intuición no es voz, es eco de vidas pasadas. Confía. Lo que sabes sin saberlo es más verdadero que cualquier prueba.",
+    "image": "cards/high_priestess.png"
+  },
+  {
+    "id": "star",
+    "name": "La Estrella",
+    "type": "major",
+    "suit": null,
+    "keyword": "Esperanza astral",
+    "interpretation": "Una estrella fugaz atraviesa tu pecho, no para herirte, para marcarte. El deseo que llevas escrito en el ADN astral pronto se hará carne. No pidas: eres ya la respuesta a una oración cósmica.",
+    "reversedInterpretation": "Las estrellas se apagan con tu pesimismo. La esperanza no muere, te escondes de ella. Tu mapa astral está en blanco porque no atreves a dibujarlo.",
+    "image": "cards/star.png"
+  },
+  {
+    "id": "strength",
+    "name": "La Fuerza",
+    "type": "major",
+    "suit": null,
+    "keyword": "Fuerza gentil",
+    "interpretation": "Acaricias al león sin domarlo: te reconoce como igual. La fuerza no es aplastar, es integrar la fiera que vive en tu carne. Pronto, tu miedo se convertirá en aliado. La valentía es amar lo que te persigue.",
+    "image": "cards/strength.png"
+  },
+  {
+    "id": "lovers",
+    "name": "Los Enamorados",
+    "type": "major",
+    "suit": null,
+    "keyword": "Elección del alma",
+    "interpretation": "Dos rostros, un mismo alma dividida por el tiempo. La elección no es entre ellos, es entre tú y la versión de ti que teme amar. Pronto, el espejo se unirá. El amor es reconocer tu otra mitad en extraños ojos.",
+    "reversedInterpretation": "El espejo se rompe en mil sí mismos. Cada elección te fragmenta más. Amas sin ser amado, eliges sin compromiso. La unión exige destruir las versiones falsas de ti.",
+    "image": "cards/lovers.png"
+  },
+  {
+    "id": "sun",
+    "name": "El Sol",
+    "type": "major",
+    "suit": null,
+    "keyword": "Iluminación total",
+    "interpretation": "El sol no brilla sobre ti: brota de tu pecho. La niñez que perdiste regresa convertida en sabiduría radiante. Pronto, tu verdad más simple será tu mayor poder. La luz no tiene sombra cuando eres tú la fuente.",
+    "image": "cards/sun.png"
+  },
+  {
+    "id": "world",
+    "name": "El Mundo",
+    "type": "major",
+    "suit": null,
+    "keyword": "Ciclos completos",
+    "interpretation": "La danza termina donde empezó, pero tú ya no eres el mismo bailarín. El ciclo se cierra para abrir un círculo mayor. Pronto, todo lo que perdiste regresa como victoria. El mundo es tu yo completo, girando sin prisa.",
+    "image": "cards/world.png"
+  }
+]

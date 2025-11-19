@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lectura de Tarot - Portal Místico</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Coda&family=Hedvig+Letters+Sans&family=Jersey+15&family=Jersey+20+Charted&family=Liter&family=Luckiest+Guy&family=Oranienbaum&family=Press+Start+2P&family=Quattrocento+Sans&family=Sorts+Mill+Goudy&family=Unna&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-gold: #D4AF37;
+            --primary-purple: #8B4F9F;
+            --primary-green: #6B8E23;
+            --dark-bg: #0a0a0a;
+            --dark-secondary: #1a1a1a;
+            --text-light: #f5f5f5;
+            --text-gold: #D4AF37;
+        }
+
+        body {
+            background: var(--dark-bg);
+            font-family: 'Oranienbaum', serif;
+            color: var(--text-light);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        .mystical-title {
+            font-family: 'Sorts Mill Goudy', serif;
+            background: linear-gradient(-45deg, var(--primary-gold), var(--primary-purple), var(--primary-green), var(--primary-gold));
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 4s ease-in-out infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .content-card {
+            background: rgba(26, 26, 26, 0.8);
+            backdrop-filter: blur(10px);
+            border: 2px solid var(--primary-gold);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .content-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(212, 175, 55, 0.3);
+        }
+
+        .reading-card {
+            width: 120px;
+            height: 200px;
+            background: linear-gradient(135deg, var(--primary-gold), var(--primary-purple));
+            border-radius: 12px;
+            border: 2px solid var(--primary-gold);
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.3);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .reading-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(212, 175, 55, 0.5);
+        }
+
+        .reading-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .download-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .download-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.6);
+        }
+    </style>
+</head>
+<body>
+    <div class="max-w-6xl mx-auto px-4 py-20">
+        <div class="text-center mb-12">
+            <h1 class="mystical-title text-4xl md:text-6xl font-bold mb-4">Tu Destino Revelado</h1>
+            <p class="text-lg text-gray-300 max-w-2xl mx-auto">
+                Las cartas han hablado y el universo ha revelado sus secretos
+            </p>
+        </div>
+
+        <div class="text-center mb-12">
+            <div class="flex justify-center gap-8 mb-8">
+                <div class="reading-card">
+                    <img src="cards/fool.png" alt="El Loco" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDEyMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxMjAiIGhlaWdodD0iMjAwIiBmaWxsPSJ1cmwoI2dyYWRpZW50KSIvPgo8dGV4dCB4PSI2MCIgeT0iMTAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSJ3aGl0ZSIgZm9udC1zaXplPSIxNCIgZm9udC1mYW1pbHk9IkFyaWFsIj5FbCBMb2NvPC90ZXh0Pgo8ZGVmcz4KPGxpbmVhckdyYWRpZW50IGlkPSJncmFkaWVudCIgeDE9IjAiIHkxPSIwIiB4Mj0iMTIwIiB5Mj0iMjAwIj4KPHN0b3Agc3RvcC1jb2xvcj0iI0Q0QUYzNyIvPgo8c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiM4QjRGOUYiLz4KPC9saW5lYXJHcmFkaWVudD4KPC9kZWZzPgo8L3N2Zz4='">
+                </div>
+                <div class="reading-card">
+                    <img src="cards/magician.png" alt="El Mago" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDEyMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxMjAiIGhlaWdodD0iMjAwIiBmaWxsPSJ1cmwoI2dyYWRpZW50KSIvPgo8dGV4dCB4PSI2MCIgeT0iMTAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSJ3aGl0ZSIgZm9udC1zaXplPSIxNCIgZm9udC1mYW1pbHk9IkFyaWFsIj5FbCBNYWdvPC90ZXh0Pgo8ZGVmcz4KPGxpbmVhckdyYWRpZW50IGlkPSJncmFkaWVudCIgeDE9IjAiIHkxPSIwIiB4Mj0iMTIwIiB5Mj0iMjAwIj4KPHN0b3Agc3RvcC1jb2xvcj0iI0Q0QUYzNyIvPgo8c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiM4QjRGOUYiLz4KPC9saW5lYXJHcmFkaWVudD4KPC9kZWZzPgo8L3N2Zz4='">
+                </div>
+                <div class="reading-card">
+                    <img src="cards/high_priestess.png" alt="La Sacerdotisa" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDEyMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxMjAiIGhlaWdodD0iMjAwIiBmaWxsPSJ1cmwoI2dyYWRpZW50KSIvPgo8dGV4dCB4PSI2MCIgeT0iMTAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSJ3aGl0ZSIgZm9udC1zaXplPSIxNCIgZm9udC1mYW1pbHk9IkFyaWFsIj5MYSBTYWNlcm90aXNhPC90ZXh0Pgo8ZGVmcz4KPGxpbmVhckdyYWRpZW50IGlkPSJncmFkaWVudCIgeDE9IjAiIHkxPSIwIiB4Mj0iMTIwIiB5Mj0iMjAwIj4KPHN0b3Agc3RvcC1jb2xvcj0iI0Q0QUYzNyIvPgo8c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiM4QjRGOUYiLz4KPC9saW5lYXJHcmFkaWVudD4KPC9kZWZzPgo8L3N2Zz4='">
+                </div>
+            </div>
+
+            <div class="flex justify-center space-x-4 mb-12">
+                <button class="download-btn" style="background: linear-gradient(45deg, #dc2626, #b91c1c);" onclick="downloadReading()">
+                    <i class="fas fa-file-pdf text-2xl text-white"></i>
+                </button>
+                <button class="download-btn" style="background: linear-gradient(45deg, #2563eb, #1d4ed8);" onclick="saveReadingImage()">
+                    <i class="fas fa-image text-2xl text-white"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="space-y-6">
+            <div class="content-card">
+                <div class="flex items-start space-x-6">
+                    <div class="flex-shrink-0">
+                        <img src="cards/fool.png" alt="El Loco" class="w-24 h-40 object-cover rounded-lg shadow-lg" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iOTYiIGhlaWdodD0iMTYwIiB2aWV3Qm94PSIwIDAgOTYgMTYwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8cmVjdCB3aWR0aD0iOTYiIGhlaWdodD0iMTYwIiBmaWxsPSJ1cmwoI2dyYWRpZW50KSIvPgo8dGV4dCB4PSI0OCIgeT0iODAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjEyIiBmb250LWZhbWlseT0iQXJpYWwiPkVsIExvY288L3RleHQ+CjxkZWZzPgo8bGluZWFyR3JhZGllbnQgaWQ9ImdyYWRpZW50IiB4MT0iMCIgeTE9IjAiIHgyPSI5NiIgeTI9IjE2MCI+CjxzdG9wIHN0b3AtY29sb3I9IiNENEFGMzciLz4KPHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjOEI0RjlGIi8+CjwvbGluZWFyR3JhZGllbnQ+Cjwvc3ZnPg=='">
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex items-center space-x-3 mb-3">
+                            <h3 class="text-xl font-bold text-yellow-400" style="font-family: 'Sorts Mill Goudy', serif;">El Loco</h3>
+                            <span class="bg-yellow-400 text-black px-3 py-1 rounded-full text-xs font-bold">El Eco del Pasado</span>
+                        </div>
+                        <p class="text-sm text-yellow-300 mb-4"><strong>Palabra clave:</strong> Nuevos comienzos</p>
+                        <p class="text-gray-300 leading-relaxed italic">"El universo te invita a dar un salto de fe. Una nueva aventura te espera, llena de posibilidades infinitas. Confía en tu intuición y deja que el cosmos guíe tus pasos hacia lo desconocido."</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <div class="flex items-start space-x-6">
+                    <div class="flex-shrink-0">
+                        <img src="cards/magician.png" alt="El Mago" class="w-24 h-40 object-cover rounded-lg shadow-lg" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iOTYiIGhlaWdodD0iMTYwIiB2aWV3Qm94PSIwIDAgOTYgMTYwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8cmVjdCB3aWR0aD0iOTYiIGhlaWdodD0iMTYwIiBmaWxsPSJ1cmwoI2dyYWRpZW50KSIvPgo8dGV4dCB4PSI0OCIgeT0iODAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjEyIiBmb250LWZhbWlseT0iQXJpYWwiPkVsIE1hZ288L3RleHQ+CjxkZWZzPgo8bGluZWFyR3JhZGllbnQgaWQ9ImdyYWRpZW50IiB4MT0iMCIgeTE9IjAiIHgyPSI5NiIgeTI9IjE2MCI+CjxzdG9wIHN0b3AtY29sb3I9IiNENEFGMzciLz4KPHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjOEI0RjlGIi8+CjwvbGluZWFyR3JhZGllbnQ+Cjwvc3ZnPg=='">
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex items-center space-x-3 mb-3">
+                            <h3 class="text-xl font-bold text-yellow-400" style="font-family: 'Sorts Mill Goudy', serif;">El Mago</h3>
+                            <span class="bg-yellow-400 text-black px-3 py-1 rounded-full text-xs font-bold">El Momento Presente</span>
+                        </div>
+                        <p class="text-sm text-yellow-300 mb-4"><strong>Palabra clave:</strong> Poder personal</p>
+                        <p class="text-gray-300 leading-relaxed italic">"Tienes el poder de manifestar tus deseos. El universo ha conspirado para darte todas las herramientas necesarias. Es momento de actuar con intención y confianza."</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <div class="flex items-start space-x-6">
+                    <div class="flex-shrink-0">
+                        <img src="cards/high_priestess.png" alt="La Sacerdotisa" class="w-24 h-40 object-cover rounded-lg shadow-lg" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iOTYiIGhlaWdodD0iMTYwIiB2aWV3Qm94PSIwIDAgOTYgMTYwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8cmVjdCB3aWR0aD0iOTYiIGhlaWdodD0iMTYwIiBmaWxsPSJ1cmwoI2dyYWRpZW50KSIvPgo8dGV4dCB4PSI0OCIgeT0iODAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjEyIiBmb250LWZhbWlseT0iQXJpYWwiPkxhIFNhY2Vyb3Rpc2E8L3RleHQ+CjxkZWZzPgo8bGluZWFyR3JhZGllbnQgaWQ9ImdyYWRpZW50IiB4MT0iMCIgeTE9IjAiIHgyPSI5NiIgeTI9IjE2MCI+CjxzdG9wIHN0b3AtY29sb3I9IiNENEFGMzciLz4KPHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjOEI0RjlGIi8+CjwvbGluZWFyR3JhZGllbnQ+Cjwvc3ZnPg=='">
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex items-center space-x-3 mb-3">
+                            <h3 class="text-xl font-bold text-yellow-400" style="font-family: 'Sorts Mill Goudy', serif;">La Sacerdotisa</h3>
+                            <span class="bg-yellow-400 text-black px-3 py-1 rounded-full text-xs font-bold">El Destino Futuro</span>
+                        </div>
+                        <p class="text-sm text-yellow-300 mb-4"><strong>Palabra clave:</strong> Intuición</p>
+                        <p class="text-gray-300 leading-relaxed italic">"Los secretos del universo se revelan a través de tu intuición. Escucha la voz silenciosa de tu alma y confía en la sabiduría que reside en tu interior."</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mt-12">
+            <a href="index.html" class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-yellow-500 to-purple-600 text-white rounded-full font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg">
+                <i class="fas fa-arrow-left mr-2"></i>
+                Volver al Inicio
+            </a>
+        </div>
+    </div>
+
+    <script>
+        function downloadReading() {
+            const content = `Tu Lectura de Tarot
+
+El Loco (Pasado): El universo te invita a dar un salto de fe. Una nueva aventura te espera, llena de posibilidades infinitas.
+
+El Mago (Presente): Tienes el poder de manifestar tus deseos. El universo ha conspirado para darte todas las herramientas necesarias.
+
+La Sacerdotisa (Futuro): Los secretos del universo se revelan a través de tu intuición. Escucha la voz silenciosa de tu alma.
+
+Generado el ${new Date().toLocaleDateString()}`;
+
+            const blob = new Blob([content], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'lectura-tarot.txt';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        function saveReadingImage() {
+            alert('Función de guardado de imagen activada. En una implementación completa, esto generaría una imagen de tu lectura.');
+        }
+    </script>
+</body>
+</html>
