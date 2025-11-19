@@ -758,7 +758,21 @@
             height: 100%;
             object-fit: cover;
         }
-    </style>
+
+                /* Animación de reaparición con rebote */
+        /* Efecto de rebote al aparecer */
+/* Animación: Aparecer pequeño -> Crecer mucho -> Volver a normal */
+/* Efecto de rebote suave al reaparecer */
+@keyframes popReappear {
+    0% { opacity: 0; transform: rotate(0deg) translateX(140px) rotate(0deg) scale(0); }
+    70% { opacity: 1; transform: rotate(0deg) translateX(140px) rotate(0deg) scale(1.4); }
+    100% { opacity: 1; transform: rotate(0deg) translateX(140px) rotate(0deg) scale(1); }
+}
+
+.pop-effect {
+    animation: popReappear 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+</style>
 </head>
 <body>
     <!-- Fondo de estrellas -->
@@ -907,6 +921,14 @@
                     </div>
                 </div>
             </div>
+            <div class="text-center mt-12">
+                        <a href="#"
+                            data-section="home"
+                            class="goto inline-flex items-center px-6 py-3 bg-gradient-to-r from-yellow-500 to-purple-600 text-white rounded-full font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg">
+                            <i class="fas fa-arrow-left mr-2"></i>
+                            Volver al Portal
+                        </a>
+                    </div>
         </section>
 
         <!-- Sección Acerca de -->
@@ -1032,21 +1054,29 @@
                         </div>
                     </div>
                 </section>
+                    <div class="text-center mt-12">
+                        <a href="#"
+                            data-section="home"
+                            class="goto inline-flex items-center px-6 py-3 bg-gradient-to-r from-yellow-500 to-purple-600 text-white rounded-full font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg">
+                            <i class="fas fa-arrow-left mr-2"></i>
+                            Volver al Portal
+                        </a>
+                    </div>
             </div>
         </section>
     </div>
 
     <!-- Navegación inferior -->
     <nav class="bottom-nav">
-        <a href="#" class="nav-item active" data-section="home">
+        <a href="#" class="nav-item goto active" data-section="home">
             <i class="fas fa-home mr-2"></i>
             Inicio
         </a>
-        <a href="#" class="nav-item" data-section="reading">
+        <a href="#" class="nav-item goto" data-section="reading">
             <i class="fas fa-hand-holding-heart mr-2"></i>
             Lectura
         </a>
-        <a href="#" class="nav-item" data-section="about">
+        <a href="#" class="nav-item goto" data-section="about">
             <i class="fas fa-scroll mr-2"></i>
             Acerca de
         </a>
@@ -1318,7 +1348,7 @@
             constructor() {
                 this.currentSection = 'home';
                 this.sections = document.querySelectorAll('.section');
-                this.navItems = document.querySelectorAll('.nav-item');
+                this.navItems = document.querySelectorAll('.goto');
                 this.init();
             }
 
@@ -1496,7 +1526,11 @@
         }
 
         function selectHomeCard(card, index) {
+
             selectedHomeCards++;
+            
+
+            enhancedAudio.playSound('select');
             
             // CORRECCIÓN: Asegurar que la carta sepa dónde estaba antes de moverse
             if (!card.style.getPropertyValue('--current-rotation')) {
@@ -1507,7 +1541,15 @@
             particleSystem.createSpark(rect.left + rect.width/2, rect.top + rect.height/2);
             
             card.classList.add('card-to-center');
+
+            setTimeout(() => {
+                card.style.transition = "all 0.5s ease";
+                card.style.opacity = '0';
+                card.style.transform = 'scale(0)'; // Efecto chispa extinguiéndose
+                card.style.pointerEvents = 'none'; // Ya no se puede clickear
+            }, 50);
             
+
             const messages = [
                 "Elegido por el destino",
                 "La carta te llama",
@@ -1583,56 +1625,113 @@
         }
 
         // ANIMACIÓN MEJORADA DE BARAJADO CON SONIDO DE VIENTO
-        function shuffleMysticalCards() {
-            if (isShuffling || tarotCards.length === 0) return;
+       function shuffleMysticalCards() {
+    if (isShuffling || tarotCards.length === 0) return;
+    
+    isShuffling = true;
+    enhancedAudio.playWindSound();
+    enhancedAudio.setIntensity(true);
+    enhancedAudio.speakMystical("Las energías ascienden...", 1.0);
+    
+    const cards = document.querySelectorAll('.floating-card');
+    
+    // --- CONFIGURACIÓN DE ALTURA ---
+    // Si quieres la chispa MÁS ABAJO, reduce este número (ej: 120, 100).
+    // Si la quieres MÁS ARRIBA, auméntalo (ej: 160, 180).
+    // 140 es el borde exacto del círculo.
+    const ALTURA_CHISPA = 50; 
+    
+    // 1. FASE DE MOVIMIENTO GIRATORIO HACIA ARRIBA
+    cards.forEach((card, index) => {
+        // A) CONGELAR POSICIÓN ACTUAL (Evita el salto brusco)
+        const computedStyle = window.getComputedStyle(card);
+        const currentTransform = computedStyle.transform;
+        card.style.animation = 'none';
+        card.style.transform = currentTransform;
+        
+        // B) FORZAR AL NAVEGADOR A RECONOCER EL CAMBIO (Reflow)
+        void card.offsetWidth; 
+        
+        // C) DEFINIR LA TRANSICIÓN (Duración del viaje)
+        // 1.5s para que "demore un ratito" y no sea instantáneo
+        card.style.transition = 'transform 1s cubic-bezier(0.45, 0, 0.55, 1), opacity 1s ease-in';
+        
+        // D) CALCULAR EL DESTINO (Girar hacia la izquierda hasta arriba)
+        // Ángulo actual base
+        let startAngle = index * 72; 
+        
+        // Destino: Queremos ir a -90deg (Arriba).
+        // Para que giren VARIAS VECES, restamos 720deg (2 vueltas completas).
+        // La fórmula asegura que todas lleguen al mismo punto (-90) sincronizadas.
+        let targetRotation = -90 ; 
+        
+        // Ajustamos la rotación final relativa a donde empezó cada una
+        // para que parezca que todas aceleran juntas.
+        
+        // APLICAR EL MOVIMIENTO:
+        // 1. Rotar hasta arriba dando vueltas (targetRotation)
+        // 2. Mantener el radio del círculo (140px)
+        // 3. Contrarrotar para que la carta se mantenga vertical
+        // 4. Hacerse pequeña (scale 0.1)
+        card.style.transform = `rotate(${targetRotation}deg) translateX(140px) rotate(${-targetRotation}deg) scale(0.4)`;
+        
+        // Desvanecer al final del trayecto
+        card.style.opacity = '0';
+    });
+    
+    // 2. FASE DE CHISPA (Sincronizada con el fin del viaje)
+    setTimeout(() => {
+        const centerX = window.innerWidth / 2;
+        // Aquí usamos la variable que te dije para ajustar la altura
+        const centerY = (window.innerHeight / 2) - ALTURA_CHISPA; 
+        
+        particleSystem.createBurst(centerX, centerY);
+        
+    }, 675); // Un poquito antes de que termine la transición de 1.5s
+    
+    // 3. FASE DE REAPARICIÓN (POP)
+    setTimeout(() => {
+        // Limpiar estilos para que vuelvan a su sitio
+        cards.forEach((card, index) => {
+            // Quitar transición para colocación instantánea invisible
+
+            card.style.opacity = '1';
             
-            isShuffling = true;
-            enhancedAudio.playWindSound();
-            enhancedAudio.setIntensity(true);
+            // Posición original estática
+            const originalAngle = index * 72;
             
-            const cards = document.querySelectorAll('.floating-card');
+            // Ponerlas en su sitio pero invisibles (scale 0)
+            card.style.transform = `rotate(${originalAngle}deg) translateX(140px) rotate(-${originalAngle}deg) scale(0.9)`;
             
-            // 1. Mover todas las cartas al centro
-            cards.forEach((card, index) => {
-                card.style.animation = 'none';
-                card.style.setProperty('--current-rotation', cardPositions[index].angle + 'deg');
-                card.classList.add('card-to-center');
+            // Activar animación CSS de "Pop" (Rebote)
+            // Usamos un pequeño timeout para asegurar que el navegador procese el cambio
+            requestAnimationFrame(() => {
+                card.classList.add('pop-effect');
             });
             
-            // 2. Efecto implosión/desaparición
+            // 4. VOLVER A ORBITAR SUAVEMENTE
             setTimeout(() => {
-                // Hacer que las cartas sean invisibles y pequeñas (Efecto solicitado)
-                cards.forEach(card => {
-                    card.style.transition = 'all 0.5s ease';
-                    card.style.opacity = '0';
-                    card.style.transform = 'scale(0.1)'; // Se hacen pequeñitas como chispas
-                    card.classList.remove('card-to-center');
-                });
-                
-                // 3. Crear chispas en el centro
-                const centerX = window.innerWidth / 2;
-                const centerY = window.innerHeight / 2;
-                particleSystem.createBurst(centerX, centerY);
-                
-                // 4. Navegar a lectura después de la explosión
-                setTimeout(() => {
-                    selectRandomCardsForReading();
-                    navigationSystem.navigateToSection('reading');
-                    
-                    isShuffling = false;
-                    enhancedAudio.setIntensity(false);
-                    
-                    const messages = [
-                        "Las cartas se han barajado",
-                        "El destino se reorganiza",
-                        "Nueva energía fluye",
-                        "El cosmos se alinea"
-                    ];
-                    const randomMessage = messages[Math.floor(Math.random() * messages.length)];
-                    enhancedAudio.speakMystical(randomMessage, 0.8, 0.6);
-                }, 1000);
-            }, 1500);
-        }
+                card.classList.remove('pop-effect');
+                // Reiniciar animación infinita
+                card.style.animation = `orbit 20s linear infinite`;
+                // Restaurar el delay original para mantener la estrella formada
+                card.style.animationDelay = `${-index * 4}s`;
+                // Asegurar estado final limpio
+                card.style.transform = ''; 
+                card.dataset.angle = originalAngle;
+            }, 1000); // Tiempo que dura el efecto pop
+        });
+        
+        isShuffling = false;
+        enhancedAudio.setIntensity(false);
+        
+        const messages = ["El ciclo comienza", "Destino trazado", "El oráculo escucha"];
+        const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+        enhancedAudio.speakMystical(randomMessage, 0.8, 0.6);
+        
+    }, 2000); // Tiempo total (1.5s de viaje + 0.1s de margen)
+} 
+        
 
         function showMysticalReading() {
             const resultsDiv = document.getElementById('readingResults');
@@ -1671,9 +1770,9 @@
             div.className = 'content-card';
             
             const positionNames = {
-                'pasado': 'El Eco del Pasado',
+                'pasado': 'Ecos del Pasado',
                 'presente': 'El Momento Presente',
-                'futuro': 'El Destino Futuro'
+                'futuro': 'El Destino'
             };
             
             const interpretation = card.reversed ? card.reversedInterpretation : card.interpretation;
@@ -1699,37 +1798,92 @@
             return div;
         }
 
-        function downloadAsPDF() {
-            enhancedAudio.playSound('click');
-            const readingContent = selectedCards.map(card => {
-                const interpretation = card.reversed ? card.reversedInterpretation : card.interpretation;
-                return `${card.name} (${card.position.toUpperCase()}): ${interpretation}`;
-            }).join('\n\n');
-            
-            const content = `Tu Lectura de Tarot\n\n${readingContent}\n\nGenerado el ${new Date().toLocaleDateString()}`;
-            const blob = new Blob([content], { type: 'text/plain' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'lectura-tarot.txt';
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
+async function downloadAsPDF() {
+    enhancedAudio.playSound('click');
+    const element = document.getElementById('interpretations');
+    
+    if (!element || element.children.length === 0) {
+        alert("Primero debes realizar una lectura para poder descargarla.");
+        return;
+    }
+    enhancedAudio.speakMystical("Abriendo el registro universal...", 0.9);
+    
+    // La función nativa. Exactamente igual a Ctrl + P.
+    // Asegúrate de marcar "Gráficos de fondo" en la ventana que sale.
+    window.print();
+
+}
+
+async function downloadAsImage() {
+    enhancedAudio.playSound('click');
+    
+    // CORRECCIÓN 1: Para capturar el HTML completo se usa document.documentElement
+    const element = document.documentElement; 
+
+    // Validación básica
+    if (!document.body || document.body.children.length === 0) {
+        alert("No hay contenido para capturar.");
+        return;
+    }
+
+    enhancedAudio.speakMystical("Capturando la visión completa...", 0.9);
+
+    try {
+        // 1. Cargar librería html2canvas (Versión actualizada 1.4.1 para mejor soporte)
+        if (!window.html2canvas) {
+            await new Promise((resolve, reject) => {
+                const s = document.createElement('script');
+                // CORRECCIÓN 2: Usar versión moderna que soporta gradientes y transformaciones
+                s.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
+                s.onload = resolve; s.onerror = reject;
+                document.head.appendChild(s);
+            });
         }
 
-        function downloadAsImage() {
-            enhancedAudio.playSound('click');
-            alert('Función de descarga de imagen activada. En una implementación completa, esto generaría una imagen de tu lectura.');
-        }
+        // 2. Configurar dimensiones totales (incluyendo scroll)
+        const width = element.scrollWidth;
+        const height = element.scrollHeight;
 
-        // CORRECCIÓN: RESET AGRESIVO PARA QUE REAPAREZCAN LAS CARTAS
-        function resetHomeCards() {
+        // 3. Ejecutar captura
+        // CORRECCIÓN 3: Sintaxis correcta (promesa) y configuración de tamaño
+        const canvas = await html2canvas(element, {
+            width: width,
+            height: height,
+            windowWidth: width,
+            windowHeight: height,
+            x: 0,
+            y: 0,
+            scale: 2, // Mejor calidad
+            useCORS: true, // Permitir imágenes externas
+            backgroundColor: null // Respetar transparencia/fondo original
+        });
+
+        // 4. LO QUE FALTABA: Crear el enlace y descargar
+        const image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+        const link = document.createElement('a');
+        link.download = 'Lectura_Tarot_Completa.png';
+        link.href = image;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        enhancedAudio.playSound('success');
+        enhancedAudio.speakMystical("La imagen ha sido guardada.", 0.8, 0.7);
+
+    } catch (error) {
+        console.error("Error crítico:", error);
+        alert("No se pudo capturar la imagen. Intenta de nuevo.");
+    }
+}     
+
+function resetHomeCards() {
             selectedHomeCards = 0;
             document.querySelectorAll('.floating-card').forEach((card, index) => {
                 // Limpieza total de estilos inline que pudieron quedar
                 card.style.removeProperty('opacity');
+                card.style.removeProperty('pointer-events')
                 card.style.removeProperty('transform');
+                card.style.removeProperty('transition');
                 card.style.removeProperty('--current-rotation');
                 
                 // Reaplicar estilos base
@@ -1738,7 +1892,7 @@
                 card.style.animationDelay = `${-index * 4}s`;
                 
                 // Eliminar clases de animación
-                card.classList.remove('card-to-center', 'card-reappear');
+                card.classList.remove('card-to-center');
                 
                 // Resetear ángulo data
                 card.dataset.angle = index * 72;
