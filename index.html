@@ -32,6 +32,13 @@
             min-height: 100vh;
         }
 
+        .fondo {
+          position: fixed;
+          width: 100vw;
+          height: 100dvh;
+        
+        }
+
         /* Fondo de estrellas animado */
         .starry-background {
             position: fixed;
@@ -775,13 +782,15 @@
 </style>
 </head>
 <body>
-    <!-- Fondo de estrellas -->
-    <div class="starry-background">
+   <!-- Fondo de estrellas -->
+    <div class="fondo">
+      <div class="starry-background">
         <div class="stars"></div>
+      </div>
+      <!-- Partículas flotantes -->
+      <div id="floatingParticles"></div>
     </div>
-
-    <!-- Partículas flotantes -->
-    <div id="floatingParticles"></div>
+    <!-- Na
 
     <!-- Navegación superior -->
     <nav class="navbar" id="navbar">
